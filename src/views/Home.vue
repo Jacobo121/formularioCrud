@@ -1,68 +1,68 @@
 <template>
   <!-- @Submit hace que se prosece el formulario y el prevent es para que no se recargue la pagina cuando se prosece -->
- <form @submit.prevent="procesarFormulario">
-   <Input :tarea="tarea" />
- </form>
+  <form @submit.prevent="procesarFormulario">
+    <Input :tarea="tarea" />
+  </form>
 
-  <hr>
- <p>
-   {{tarea}}
- </p>
+  <hr />
+  <p>
+    <ListaTareas />
+  </p>
 </template>
 
 <script>
 // @ is an alias to /src
-import Input from '../components/Input.vue'
-import {mapActions} from 'vuex'
-const shortid = require('shortid'); 
+import Input from "../components/Input.vue";
+import { mapActions } from "vuex";
+const shortid = require("shortid");
+import ListaTareas from '../components/listaTareas.vue'
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    Input
+    Input,
+    ListaTareas
   },
 
   data() {
     return {
       tarea: {
+        id: "",
         nombre: "",
         categorias: [],
         estado: "",
-        numero: 0
+        numero: 0,
       },
-
-    }
+    };
   },
 
   methods: {
-    ...mapActions(['setTareas']),
+    ...mapActions(["setTareas"]),
 
     procesarFormulario() {
-      console.log(this.tarea)
-      if(this.tarea.nombre.trim() === "") {
-        console.log('Campo vacio')
-        return
+      console.log(this.tarea);
+      if (this.tarea.nombre.trim() === "") {
+        console.log("Campo vacio");
+        return;
       }
-      console.log('el campo no esta vacio')
+      console.log("el campo no esta vacio");
 
       //generar id
-      this.tarea.id = shortid.generate()
-      console.log(this.tarea.id)
+      this.tarea.id = shortid.generate();
+      console.log(this.tarea.id);
 
       //enviar datos
-      this.setTareas(this.tarea)
+      this.setTareas(this.tarea);
 
       //refrescar el formulario
       this.tarea = {
-        id: '',
+        id: "",
         nombre: "",
         categorias: [],
         estado: "",
-        numero: 0
-      }
+        numero: 0,
+      };
     },
   },
-
-  
-}
+};
 </script>
