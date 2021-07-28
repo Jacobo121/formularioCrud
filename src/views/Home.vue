@@ -13,6 +13,8 @@
 <script>
 // @ is an alias to /src
 import Input from '../components/Input.vue'
+import {mapActions} from 'vuex'
+const shortid = require('shortid'); 
 
 export default {
   name: 'Home',
@@ -33,6 +35,8 @@ export default {
   },
 
   methods: {
+    ...mapActions(['setTareas']),
+
     procesarFormulario() {
       console.log(this.tarea)
       if(this.tarea.nombre.trim() === "") {
@@ -40,8 +44,15 @@ export default {
         return
       }
       console.log('el campo no esta vacio')
-      //enviar datos
 
+      //generar id
+      this.tarea.id = shortid.generate()
+      console.log(this.tarea.id)
+
+      //enviar datos
+      this.setTareas(this.tarea)
+
+      //refrescar el formulario
       this.tarea = {
         id: '',
         nombre: "",
