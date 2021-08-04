@@ -1,7 +1,7 @@
 <template lang="">
     <div>
         editar {{$route.params.id}} - {{tarea}}
-        <form>
+        <form @submit.prevent="updateTarea(tarea)">
             <Input :tarea="tarea" />
         </form>
     </div>
@@ -18,7 +18,7 @@ export default {
         this.setTarea(this.$route.params.id)
     },
     methods: {
-        ...mapActions(['setTarea'])
+        ...mapActions(['setTarea', 'updateTarea'])
     },
     
     computed: {
